@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Container from '@/components/Container'
 import TagItem from '@/components/TagItem'
-import { NotionRenderer, Equation, Code, Collection, CollectionRow } from 'react-notion-x'
 import BLOG from '@/blog.config'
 import formatDate from '@/lib/formatDate'
 import { useLocale } from '@/lib/locale'
@@ -14,9 +13,7 @@ const mapPageUrl = id => {
 
 const Layout = ({
   children,
-  blockMap,
   frontMatter,
-  emailHash,
   fullWidth = false
 }) => {
   const locale = useLocale()
@@ -34,7 +31,7 @@ const Layout = ({
         <h1 className="font-bold text-3xl text-black dark:text-white">
           {frontMatter.title}
         </h1>
-        {frontMatter.type[0] !== 'Page' && (
+        {(
           <nav className="flex mt-7 items-start text-gray-500 dark:text-gray-400">
             <div className="flex mb-4">
               <a href={BLOG.socialLink || '#'} className="flex">
@@ -42,16 +39,16 @@ const Layout = ({
                   alt={BLOG.author}
                   width={24}
                   height={24}
-                  src={`https://gravatar.com/avatar/${emailHash}`}
+                  src={`https://avatars.githubusercontent.com/u/8725170?s=64&v=4`}
                   className="rounded-full"
                 />
-                <p className="ml-2 md:block">{BLOG.author}</p>
+                <p className="ml-2 md:block">{frontMatter.sourceName}</p>
               </a>
               <span className="block">&nbsp;/&nbsp;</span>
             </div>
             <div className="mr-2 mb-4 md:ml-0">
               {formatDate(
-                frontMatter?.date?.start_date || frontMatter.createdTime,
+                frontMatter?.sourcePublishTime,
                 BLOG.lang
               )}
             </div>
@@ -65,20 +62,7 @@ const Layout = ({
           </nav>
         )}
         {children}
-        {blockMap && (
-          <div className="-mt-4">
-            <NotionRenderer
-              recordMap={blockMap}
-              components={{
-                equation: Equation,
-                code: Code,
-                collection: Collection,
-                collectionRow: CollectionRow
-              }}
-              mapPageUrl={mapPageUrl}
-            />
-          </div>
-        )}
+        <div dangerouslySetInnerHTML={{__html:frontMatter.content}} />
       </article>
       <div className="flex justify-between font-medium text-gray-500 dark:text-gray-400">
         <a>

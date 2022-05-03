@@ -1,31 +1,63 @@
 import Container from '@/components/Container'
 import BlogPost from '@/components/BlogPost'
-import Pagination from '@/components/Pagination'
-import { getAllPosts } from '@/lib/notion'
 import BLOG from '@/blog.config'
-
-export async function getStaticProps () {
-  const posts = await getAllPosts({ includePages: false })
-  const postsToShow = posts.slice(0, BLOG.postsPerPage)
-  const totalPosts = posts.length
-  const showNext = totalPosts > BLOG.postsPerPage
+import { getNewsList } from '@/lib/news'
+import { useEffect, useState, useRef } from 'react'
+import useOnScreen from '@/lib/hooks/useOnScreen'
+export async function getStaticProps() {
+  const res = await getNewsList(null, 100)
+  const { maxId, minId, list } = res.data
   return {
     props: {
-      page: 1, // current page is 1
-      postsToShow,
-      showNext
+      postList: list,
+      maxId,
+      minId
     },
-    revalidate: 1
+    revalidate: 10
   }
 }
 
-const blog = ({ postsToShow, page, showNext }) => {
+const  blog = ({ postList, maxId, minId }) => {
+  const ref = useRef(null)
+  const [count, setCount] = useState(0)
+  const [firstId, setFirstId] = useState(maxId)
+  const [lastId, setLastId] = useState(minId)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isOver, setIsOver] = useState(false)
+  const isVisible = useOnScreen(ref)
+  const [isFirst, setIsFirst] = useState(true)
+  const [list, setList] = useState(postList)
+  useEffect(() => {
+  if (isOver){
+    return
+  }
+    if (!isLoading && !isFirst && isVisible) {
+      setIsLoading(true)
+     getNewsList(lastId, 100).then(function(res){
+        const data = res.data
+        setIsLoading(false)
+        if (data.list.length == 0) {
+          setIsOver(true)
+          return
+        }
+        setList(list.concat(data.list))
+        setFirstId(data.maxId)
+        setLastId(data.minId)
+      })
+    }
+
+    if (isFirst) {
+      setIsFirst(false)
+    }
+  }, [isVisible])
   return (
     <Container title={BLOG.title} description={BLOG.description}>
-      {postsToShow.map(post => (
-        <BlogPost key={post.id} post={post} />
+      {list.map(post => (
+        <BlogPost key={post.sort} post={post} />
       ))}
-      {showNext && <Pagination page={page} showNext={showNext} />}
+      <div ref={ref} className="flex justify-center">
+        {isLoading ? '加载中...' : isOver ? '没有更多消息了' : ''}
+      </div>
     </Container>
   )
 }

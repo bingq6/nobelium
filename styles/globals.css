@@ -139,3 +139,19 @@ nav {
     @apply bg-day bg-opacity-90 dark:bg-night dark:bg-opacity-90;
   }
 }
+.rich_media_content * {
+  max-width: 100%!important;
+  box-sizing: border-box!important;
+  -webkit-box-sizing: border-box!important;
+  word-wrap: break-word!important;
+}
+.rich_media_content img{
+  display: inline;
+  height: auto !important;
+}
+.rich_media_content a img{
+  border: 0;
+}
+.wxw-img {
+  vertical-align: bottom;
+}

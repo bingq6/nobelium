@@ -1,7 +1,7 @@
 module.exports = {
   webpack5: true,
   images: {
-    domains: ['gravatar.com']
+    domains: ['gravatar.com','avatars.githubusercontent.com']
   },
   eslint: {
     dirs: [
@@ -34,5 +34,12 @@ module.exports = {
       })
     }
     return config
+  },
+  async rewrites() { 
+    return [ 
+     //接口请求 前缀带上/api-text/
+      { source: '/api/:path*', destination: `https://www.shun6.net/api/:path*` }, 
+
+    ]
   }
 }
