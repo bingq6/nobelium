@@ -155,3 +155,32 @@ nav {
 .wxw-img {
   vertical-align: bottom;
 }
+
+.notice_message {
+  margin-bottom: 20px;
+  position: sticky;
+  top: 10px;
+  z-index: 11;
+ @apply shadow-sm
+}
+.notice_content {
+  position: relative;
+  text-align: center;
+  font-weight: 500;
+  color: #7a6c5d;
+  background-color: #fff7e0;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 13px;
+}
+.notice_close {
+  position: absolute;
+  right: 2px;
+  font-weight: bolder;
+  top: 0;
+  font-size: 16px;
+  padding: 13px;
+  color: #64584c;
+  cursor: pointer;
+}

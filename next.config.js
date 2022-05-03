@@ -38,7 +38,7 @@ module.exports = {
   async rewrites() { 
     return [ 
      //接口请求 前缀带上/api-text/
-      { source: '/api/:path*', destination: `https://www.shun6.net/api/:path*` }, 
+      { source: '/api/:path*', destination: `http://localhost:8101/api/:path*` }, 
 
     ]
   }
