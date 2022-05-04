@@ -36,7 +36,7 @@ const blog = ({ postList, maxId, minId }) => {
       setNewList(data.list)
       setFirstId(data.maxId)
     })
-  }, 60 * 1000)
+  }, 600)
 
 useEffect(() => {
   if (isOver) {
@@ -44,7 +44,7 @@ useEffect(() => {
   }
   if (!isLoading && !isFirst && isVisible) {
     setIsLoading(true)
-    getNewsList(lastId, 100).then(function (res) {
+    getNewsList(lastId, 50).then(function (res) {
       const data = res.data
       setIsLoading(false)
       if (data.list.length == 0) {
@@ -75,7 +75,7 @@ return (
     {list.map(post => (
       <BlogPost key={post.sort} post={post} />
     ))}
-    <div ref={ref} className="flex justify-center">
+    <div ref={ref} className="flex justify-center text-gray-400">
       {isLoading ? '加载中...' : isOver ? '没有更多消息了' : ''}
     </div>
   </Container>

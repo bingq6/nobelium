@@ -22,7 +22,7 @@ export async function getStaticProps ({ params: { id } }) {
   const {data:post}=res;
   return {
     props: { post },
-    revalidate: 1
+    revalidate: 60*60
   }
 }
 

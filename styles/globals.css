@@ -184,3 +184,22 @@ nav {
   color: #64584c;
   cursor: pointer;
 }
+.logo{
+  height: 60px;
+  margin-left: -2px;
+}
+.source-link .link {
+  margin-right: 12px;
+  position: relative;
+}
+.source-link .link:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: -12px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid #b2b2b2;
+}

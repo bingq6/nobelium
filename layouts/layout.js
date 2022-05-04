@@ -35,13 +35,6 @@ const Layout = ({
           <nav className="flex mt-7 items-start text-gray-500 dark:text-gray-400">
             <div className="flex mb-4">
               <a href={BLOG.socialLink || '#'} className="flex">
-                <Image
-                  alt={BLOG.author}
-                  width={24}
-                  height={24}
-                  src={`https://avatars.githubusercontent.com/u/8725170?s=64&v=4`}
-                  className="rounded-full"
-                />
                 <p className="ml-2 md:block">{frontMatter.sourceName}</p>
               </a>
               <span className="block">&nbsp;/&nbsp;</span>
@@ -52,6 +45,9 @@ const Layout = ({
                 BLOG.lang
               )}
             </div>
+            <div className='flex-grow text-right source-link'>
+            <a className='link' href={frontMatter.linkUrl} rel="noreferrer" target="_blank">访问原网址</a>
+            </div>
             {frontMatter.tags && (
               <div className="flex flex-nowrap max-w-full overflow-x-auto article-tags">
                 {frontMatter.tags.map(tag => (
@@ -59,10 +55,11 @@ const Layout = ({
                 ))}
               </div>
             )}
+
           </nav>
         )}
         {children}
-        <div dangerouslySetInnerHTML={{__html:frontMatter.content}} />
+        <div className='dark:text-white' dangerouslySetInnerHTML={{__html:frontMatter.content}} />
       </article>
       <div className="flex justify-between font-medium text-gray-500 dark:text-gray-400">
         <a>
