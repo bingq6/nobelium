@@ -36,7 +36,7 @@ const blog = ({ postList, maxId, minId }) => {
       setNewList(data.list)
       setFirstId(data.maxId)
     })
-  }, 600)
+  }, 180*1000)
 
 useEffect(() => {
   if (isOver) {
