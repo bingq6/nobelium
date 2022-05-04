@@ -42,6 +42,19 @@ const Scripts = () => (
         </Script>
       </>
     )}
+    {BLOG.analytics && BLOG.analytics.provider === 'baidu' && (
+      <>
+        <Script strategy="lazyOnload" id="baidu">
+          {`var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?052936fc6696f1befea9761c53eda1c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();`}
+        </Script>
+      </>
+    )}
   </>
 )
 

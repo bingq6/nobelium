@@ -99,6 +99,7 @@ const Header = ({ navBarTitle, fullWidth }) => {
           <Link href="/">
             <img className='logo' src='/logo.png' />
           </Link>
+          <p className='mt-3 font-normal dark:text-night header-domain'>shun6.net</p>
           {navBarTitle
             ? (
               <p className="ml-2 font-medium text-day dark:text-night header-name">
@@ -110,6 +111,7 @@ const Header = ({ navBarTitle, fullWidth }) => {
                 {BLOG.title},{' '}
                 <span className="font-normal">{BLOG.description}</span>
               </p>
+              
             )}
         </div>
         <NavBar />

@@ -131,6 +131,9 @@ nav {
     opacity: 1;
     @apply dark:text-gray-300 text-gray-600;
   }
+  .sticky-nav-full .header-domain{
+    display: none;
+  } 
 }
 
 @supports not (backdrop-filter: none) {
