@@ -21,7 +21,7 @@ const BlogPost = ({ post }) => {
 
   if (post.showType == 1) {
     return (<Link href={post.linkUrl}>
-      <a target='_blank' rel="noreferrer" >
+      <a target='_blank' rel="noopener noreferrer nofollow" >
         {artcile}
       </a>
     </Link>)

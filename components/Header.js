@@ -99,17 +99,17 @@ const Header = ({ navBarTitle, fullWidth }) => {
           <Link href="/">
             <img className='logo' src='/logo.png' />
           </Link>
-          <p className='mt-3 font-normal dark:text-night header-domain'>shun6.net</p>
+          <p className='mt-3 font-normal text-gray-700 dark:text-gray-300 header-domain'>shun6.net</p>
           {navBarTitle
             ? (
-              <p className="ml-2 font-medium text-day dark:text-night header-name">
+              <p className="ml-2 font-medium  header-name">
                 {navBarTitle}
               </p>
             )
             : (
-              <p className="ml-2 font-medium text-day dark:text-night header-name">
+              <p className="ml-2 font-medium header-name">
                 {BLOG.title},{' '}
-                <span className="font-normal">{BLOG.description}</span>
+                <span className="font-normal">每个牙医都在关注的牙科资讯网站</span>
               </p>
               
             )}

@@ -22,7 +22,7 @@ const Layout = ({
     <Container
       layout="blog"
       title={frontMatter.title}
-      description={frontMatter.summary}
+      description={frontMatter.digest}
       // date={new Date(frontMatter.publishedAt).toISOString()}
       type="article"
       fullWidth={fullWidth}
