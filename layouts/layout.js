@@ -35,7 +35,7 @@ const Layout = ({
           <nav className="flex mt-7 items-start text-gray-500 dark:text-gray-400">
             <div className="flex mb-4">
               <a href={BLOG.socialLink || '#'} className="flex">
-                <p className="ml-2 md:block">{frontMatter.sourceName}</p>
+                <p className="ml-1 md:block">{frontMatter.sourceName}</p>
               </a>
               <span className="block">&nbsp;/&nbsp;</span>
             </div>
