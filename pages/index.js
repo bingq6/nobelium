@@ -24,10 +24,9 @@ const blog = ({ postList, maxId, minId }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isOver, setIsOver] = useState(false)
   const isVisible = useOnScreen(ref)
-  const [isFirst, setIsFirst] = useState(true)
   const [list, setList] = useState(postList)
   const [newList, setNewList] = useState(null)
-  useInterval(() => {
+  const flushLatestNews = () => {
     getLatestNewsList(firstId).then(function (res) {
       const data = res.data
       if (data.list.length == 0) {
@@ -36,50 +35,50 @@ const blog = ({ postList, maxId, minId }) => {
       setNewList(data.list)
       setFirstId(data.maxId)
     })
-  }, 180*1000)
-
-useEffect(() => {
-  if (isOver) {
-    return
   }
-  if (!isLoading && !isFirst && isVisible) {
-    setIsLoading(true)
-    getNewsList(lastId, 50).then(function (res) {
-      const data = res.data
-      setIsLoading(false)
-      if (data.list.length == 0) {
-        setIsOver(true)
-        return
-      }
-      setList(list.concat(data.list))
-      setLastId(data.minId)
-    })
-  }
-
-  if (isFirst) {
-    setIsFirst(false)
-  }
-}, [isVisible])
-return (
-  <Container title={BLOG.title} description={BLOG.description}>
-    {newList && newList.length > 0 &&
-      <div className='notice_message'>
-        <div onClick={() => {
-          setList(newList.concat(list))
-          setNewList(null)
-        }} className='notice_content'>有 {newList.length} 个新资讯，点击查看</div><div onClick={() => {
-          setNewList(null)
-        }} className='notice_close'>✕</div>
-      </div>
+  useInterval(flushLatestNews, 180 * 1000)
+  useEffect(() => {
+    flushLatestNews()
+  }, [])
+  useEffect(() => {
+    if (isOver) {
+      return
     }
-    {list.map(post => (
-      <BlogPost key={post.sort} post={post} />
-    ))}
-    <div ref={ref} className="flex justify-center text-gray-400">
-      {isLoading ? '加载中...' : isOver ? '没有更多消息了' : ''}
-    </div>
-  </Container>
-)
+    if (!isLoading && isVisible) {
+      setIsLoading(true)
+      getNewsList(lastId, 50).then(function (res) {
+        const data = res.data
+        setIsLoading(false)
+        if (data.list.length == 0) {
+          setIsOver(true)
+          return
+        }
+        setList(list.concat(data.list))
+        setLastId(data.minId)
+      })
+    }
+  }, [isVisible])
+  return (
+    <Container title={BLOG.title} description={BLOG.description}>
+      {newList && newList.length > 0 &&
+        <div className='notice_message'>
+          <div onClick={() => {
+            setList(newList.concat(list))
+            setNewList(null)
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+          }} className='notice_content'>有 {newList.length} 个新资讯，点击查看</div><div onClick={() => {
+            setNewList(null)
+          }} className='notice_close'>✕</div>
+        </div>
+      }
+      {list.map(post => (
+        <BlogPost key={post.sort} post={post} />
+      ))}
+      <div ref={ref} className="flex justify-center text-gray-400">
+        {isLoading ? '加载中...' : isOver ? '没有更多消息了' : ''}
+      </div>
+    </Container>
+  )
 }
 
 export default blog
