@@ -158,6 +158,31 @@ nav {
 .wxw-img {
   vertical-align: bottom;
 }
+.rich_media_content table {
+	margin-bottom:10px;
+	border-collapse:collapse;
+	display:table;
+	width:100%!important
+}
+.rich_media_content td,th {
+	word-wrap:break-word;
+	word-break:break-all;
+	-webkit-hyphens:auto;
+	-ms-hyphens:auto;
+	hyphens:auto;
+	padding:5px 10px;
+	border:1px solid #DDD
+}
+.rich_media_content caption {
+	border:1px dashed #DDD;
+	border-bottom:0;
+	padding:3px;
+	text-align:center
+}
+th {
+	border-top:2px solid #BBB;
+	background:#F7F7F7
+}
 
 .notice_message {
   margin-bottom: 20px;
