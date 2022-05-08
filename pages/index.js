@@ -1,7 +1,7 @@
 import Container from '@/components/Container'
 import BlogPost from '@/components/BlogPost'
 import BLOG from '@/blog.config'
-import { getNewsList, getLatestNewsList } from '@/lib/news'
+import { getNewsList, getLatestNewsList, getNewsItem } from '@/lib/news'
 import { useEffect, useState, useRef } from 'react'
 import useOnScreen from '@/lib/hooks/useOnScreen'
 import useInterval from "@/lib/hooks/useInterval";
@@ -18,6 +18,7 @@ export async function getStaticProps() {
   }
 }
 const blog = ({ postList, maxId, minId }) => {
+  const selectId = typeof location !== 'undefined' && location.href.lastIndexOf("#")>-1 && location.href.substring(location.href.lastIndexOf("#") + 1)
   const ref = useRef(null)
   const [firstId, setFirstId] = useState(maxId)
   const [lastId, setLastId] = useState(minId)
@@ -39,6 +40,18 @@ const blog = ({ postList, maxId, minId }) => {
   useInterval(flushLatestNews, 180 * 1000)
   useEffect(() => {
     flushLatestNews()
+    if (selectId) {
+      const index = list.findIndex((item) => item.sort == selectId)
+      if (index != -1) {
+        setList(list.splice(index, 1).concat(list))
+      } else {
+        const res = getNewsItem(selectId).then((res) => {
+          if (res.code == 0) {
+            setList([res.data, ...list])
+          }
+        })
+      }
+    }
   }, [])
   useEffect(() => {
     if (isOver) {
