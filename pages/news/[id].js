@@ -1,7 +1,10 @@
 import Layout from '@/layouts/layout'
 import { getNews } from "@/lib/news";
+import useWeiXinShare from "@/lib/hooks/useWeiXinShare";
+import {getBaseLink} from '@/lib/utils'
 
 const BlogPost = ({ post }) => {
+  useWeiXinShare(post.title,post.digest,"#"+post.sort,null)
   if (!post) return null
   return (
     <Layout

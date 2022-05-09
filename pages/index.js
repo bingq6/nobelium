@@ -5,6 +5,8 @@ import { getNewsList, getLatestNewsList, getNewsItem } from '@/lib/news'
 import { useEffect, useState, useRef } from 'react'
 import useOnScreen from '@/lib/hooks/useOnScreen'
 import useInterval from "@/lib/hooks/useInterval";
+import useWeiXinShare from "@/lib/hooks/useWeiXinShare";
+import {getBaseLink} from '@/lib/utils'
 export async function getStaticProps() {
   const res = await getNewsList(null, 100)
   const { maxId, minId, list } = res.data
@@ -18,7 +20,7 @@ export async function getStaticProps() {
   }
 }
 const blog = ({ postList, maxId, minId }) => {
-  const selectId = typeof location !== 'undefined' && location.href.lastIndexOf("#")>-1 && location.href.substring(location.href.lastIndexOf("#") + 1)
+  const selectId = typeof location !== 'undefined' && location.href.lastIndexOf("#") > -1 && location.href.split('#')[1]
   const ref = useRef(null)
   const [firstId, setFirstId] = useState(maxId)
   const [lastId, setLastId] = useState(minId)
@@ -71,6 +73,7 @@ const blog = ({ postList, maxId, minId }) => {
       })
     }
   }, [isVisible])
+  useWeiXinShare(BLOG.title,BLOG.description,null,null)
   return (
     <Container title={BLOG.title} description={BLOG.description}>
       {newList && newList.length > 0 &&
