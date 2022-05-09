@@ -56,7 +56,7 @@ const BLOG = {
     }
   },
   isProd: process.env.VERCEL_ENV === 'production', // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)
-  baseUrl: 'https://www.shun6.net',
+  baseUrl: 'http://localhost:3000',
   appid:'wxe60f952ee231cfdc'
 }
 // export default BLOG
