@@ -7,10 +7,6 @@ import { useLocale } from '@/lib/locale'
 import { useRouter } from 'next/router'
 import Comments from '@/components/Comments'
 
-const mapPageUrl = id => {
-  return 'https://www.notion.so/' + id.replace(/-/g, '')
-}
-
 const Layout = ({
   children,
   frontMatter,
@@ -31,22 +27,18 @@ const Layout = ({
         <h1 className="font-bold text-3xl text-black dark:text-white">
           {frontMatter.title}
         </h1>
-        {(
-          <nav className="flex mt-7 items-start text-gray-500 dark:text-gray-400">
-            <div className="flex mb-4">
-              <a href={BLOG.socialLink || '#'} className="flex">
-                <p className="ml-1 md:block">{frontMatter.sourceName}</p>
-              </a>
-              <span className="block">&nbsp;/&nbsp;</span>
-            </div>
-            <div className="mr-2 mb-4 md:ml-0">
-              {formatDate(
-                frontMatter?.sourcePublishTime,
-                BLOG.lang
-              )}
+        <div className="my-4 text-right">
+          {formatDate(
+            frontMatter?.sourcePublishTime,
+            BLOG.lang
+          )}
+        </div>
+          <nav className="flex my-4 items-start text-gray-500 dark:text-gray-400">
+            <div className="mb-4">
+              <p className="ml-1 md:block">来源：{frontMatter.sourceName}</p>
             </div>
             <div className='flex-grow text-right source-link'>
-            <a className='link' href={frontMatter.linkUrl} rel="noreferrer" target="_blank">访问原网址</a>
+              <a className='link' href={frontMatter.linkUrl} rel="noreferrer" target="_blank">访问原网址</a>
             </div>
             {frontMatter.tags && (
               <div className="flex flex-nowrap max-w-full overflow-x-auto article-tags">
@@ -57,9 +49,8 @@ const Layout = ({
             )}
 
           </nav>
-        )}
         {children}
-        <div className='dark:text-white' dangerouslySetInnerHTML={{__html:frontMatter.content}} />
+        <div className='dark:text-white' dangerouslySetInnerHTML={{ __html: frontMatter.content }} />
       </article>
       <div className="flex justify-between font-medium text-gray-500 dark:text-gray-400">
         <a>
