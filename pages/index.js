@@ -14,7 +14,7 @@ export async function getStaticProps() {
       maxId,
       minId
     },
-    revalidate: 60
+    revalidate: 30
   }
 }
 const blog = ({ postList, maxId, minId }) => {

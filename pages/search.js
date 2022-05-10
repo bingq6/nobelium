@@ -1,16 +1,20 @@
+import { useState } from "react";
 import SearchLayout from '@/layouts/search'
+import {doSearch} from "@/lib/news";
 
-export default function search ({ tags, posts }) {
+export default function search ({ tags,posts}) {
+  // const[posts,setPosts]=useState([])
   return <SearchLayout tags={tags} posts={posts} />
 }
 export async function getStaticProps () {
-  const posts =[]// await getAllPosts({ includePages: false })
   const tags ={} //getAllTagsFromPosts(posts)
+  // const {data:{list:posts}}=await doSearch('西部国际口腔展 ')
+  const posts=[]
   return {
     props: {
       tags,
       posts
     },
-    revalidate: 1
+    revalidate: 30
   }
 }
