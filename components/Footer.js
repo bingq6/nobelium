@@ -16,6 +16,7 @@ const Footer = ({ fullWidth }) => {
           <p>
             © {BLOG.author} {from === y || !from ? y : `${from} - ${y}`}
           </p>
+          <p>email：1024347665@qq.com</p>
           <p><a target="_blank" rel="noopener noreferrer" href="https://beian.miit.gov.cn/">京ICP备15059887号-1</a></p>
         </div>
       </div>

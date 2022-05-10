@@ -35,7 +35,7 @@ const Layout = ({
         </div>
           <nav className="flex my-4 items-start text-gray-500 dark:text-gray-400">
             <div className="mb-4">
-              <p className="ml-1 md:block">来源：{frontMatter.sourceName}</p>
+              <p className="md:block">来源：{frontMatter.sourceName}</p>
             </div>
             <div className='flex-grow text-right source-link'>
               <a className='link' href={frontMatter.linkUrl} rel="noreferrer" target="_blank">访问原网址</a>
