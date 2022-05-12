@@ -54,7 +54,7 @@ const Layout = ({
       <div className="flex justify-between font-medium text-gray-500 dark:text-gray-400">
         <a>
           <button
-            onClick={() => router.push(BLOG.path || '/')}
+            onClick={() => router.push('/')}
             className="mt-2 cursor-pointer hover:text-black dark:hover:text-gray-100"
           >
             ← {locale.POST.BACK}
