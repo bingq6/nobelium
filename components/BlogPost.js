@@ -27,7 +27,7 @@ const BlogPost = ({ post }) => {
     </Link>)
   }
   return (<Link href={`/news/${post.sort}`}>
-    <a>
+    <a target='_blank'>
       {artcile}
     </a>
   </Link>)

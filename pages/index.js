@@ -7,7 +7,7 @@ import useOnScreen from '@/lib/hooks/useOnScreen'
 import useInterval from "@/lib/hooks/useInterval";
 const STORAGE_PREFIX = "index_"
 export async function getStaticProps() {
-  const res = await getNewsList(null, 100)
+  const res = await getNewsList(null, 50)
   const { maxId, minId, list } = res.data
   return {
     props: {
