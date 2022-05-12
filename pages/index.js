@@ -5,6 +5,7 @@ import { getNewsList, getLatestNewsList, getNewsItem } from '@/lib/news'
 import { useEffect, useState, useRef } from 'react'
 import useOnScreen from '@/lib/hooks/useOnScreen'
 import useInterval from "@/lib/hooks/useInterval";
+const STORAGE_PREFIX = "index_"
 export async function getStaticProps() {
   const res = await getNewsList(null, 100)
   const { maxId, minId, list } = res.data
@@ -27,8 +28,12 @@ const blog = ({ postList, maxId, minId }) => {
   const isVisible = useOnScreen(ref)
   const [list, setList] = useState(postList)
   const [newList, setNewList] = useState(null)
+  const [mouted,setMouted]=useState(false)
   const flushLatestNews = () => {
-    getLatestNewsList(firstId).then(function (res) {
+    let theFirstId=firstId
+    const cacheFirstId = JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + 'firstId'))
+    cacheFirstId&&(theFirstId=cacheFirstId)
+    getLatestNewsList(theFirstId).then(function (res) {
       const data = res.data
       if (data.list.length == 0) {
         return
@@ -71,6 +76,25 @@ const blog = ({ postList, maxId, minId }) => {
       })
     }
   }, [isVisible])
+  useEffect(() => {
+    const posts = JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + 'posts'))
+    if (posts != null) {
+      setList(posts)
+      setFirstId(JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + "firstId")))
+      setLastId(JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + "lastId")))
+      setNewList(JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + 'newList')))
+    }
+    setMouted(true)
+  }, [])
+  useEffect(() => {
+    if (!mouted){
+      return
+    }
+    sessionStorage.setItem(STORAGE_PREFIX + 'posts', JSON.stringify(list))
+    sessionStorage.setItem(STORAGE_PREFIX + 'firstId', JSON.stringify(firstId))
+    sessionStorage.setItem(STORAGE_PREFIX + 'lastId', JSON.stringify(lastId))
+    sessionStorage.setItem(STORAGE_PREFIX + 'newList', JSON.stringify(newList))
+  }, [list, firstId, lastId, newList])
   return (
     <Container title={BLOG.title} description={BLOG.description}>
       {newList && newList.length > 0 &&
