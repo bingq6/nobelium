@@ -13,7 +13,7 @@ const BlogPost = ({ post }) => {
       </time>
     </header>
     <main>
-      <p className="leading-8 text-gray-700 dark:text-gray-300 text-justify">
+      <p className="leading-8 text-gray-700 dark:text-gray-300 text-justify break-all">
         {post.digest}
       </p>
     </main>
