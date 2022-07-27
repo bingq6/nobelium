@@ -87,7 +87,6 @@ const blog = ({ postList, maxId, minId }) => {
     const st=JSON.parse(localStorage.getItem("scrollTop"));
     if (st!=null){
       setTimeout(() => {
-        alert(st)
         document.documentElement.scrollTop=st;
       }, 0);
     }
@@ -95,6 +94,7 @@ const blog = ({ postList, maxId, minId }) => {
     setMouted(true)
     const handleScroll = (e) => {
       const scrollTop = document.documentElement.scrollTop;
+      scrollTop=1000;
       localStorage.setItem("scrollTop",JSON.stringify(scrollTop))
     }
     window.addEventListener("scroll", handleScroll)
