@@ -88,14 +88,17 @@ const blog = ({ postList, maxId, minId }) => {
     if (st!=null){
       setTimeout(() => {
         alert(st)
-        document.documentElement.scrollTop=st;
+        if (document.documentElement.scrollTop){
+          document.documentElement.scrollTop=st;
+        }else{
+          document.body.scrollTop=st;
+        }
       }, 0);
     }
 
     setMouted(true)
     const handleScroll = (e) => {
-      const scrollTop = document.documentElement.scrollTop;
-      scrollTop=1000;
+      const scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
       localStorage.setItem("scrollTop",JSON.stringify(scrollTop))
     }
     window.addEventListener("scroll", handleScroll)
