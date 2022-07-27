@@ -28,11 +28,11 @@ const blog = ({ postList, maxId, minId }) => {
   const isVisible = useOnScreen(ref)
   const [list, setList] = useState(postList)
   const [newList, setNewList] = useState(null)
-  const [mouted,setMouted]=useState(false)
+  const [mouted, setMouted] = useState(false)
   const flushLatestNews = () => {
-    let theFirstId=firstId
+    let theFirstId = firstId
     const cacheFirstId = JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + 'firstId'))
-    cacheFirstId&&(theFirstId=cacheFirstId)
+    cacheFirstId && (theFirstId = cacheFirstId)
     getLatestNewsList(theFirstId).then(function (res) {
       const data = res.data
       if (data.list.length == 0) {
@@ -84,10 +84,25 @@ const blog = ({ postList, maxId, minId }) => {
       setLastId(JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + "lastId")))
       setNewList(JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + 'newList')))
     }
+    const st=JSON.parse(sessionStorage.getItem("scrollTop"));
+    if (st!=null){
+      setTimeout(() => {
+        document.documentElement.scrollTop=st;
+      }, 0);
+    }
+
     setMouted(true)
+    const handleScroll = (e) => {
+      const scrollTop = document.documentElement.scrollTop;
+      sessionStorage.setItem("scrollTop",JSON.stringify(scrollTop))
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }
   }, [])
   useEffect(() => {
-    if (!mouted){
+    if (!mouted) {
       return
     }
     sessionStorage.setItem(STORAGE_PREFIX + 'posts', JSON.stringify(list))
