@@ -84,10 +84,9 @@ const blog = ({ postList, maxId, minId }) => {
       setLastId(JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + "lastId")))
       setNewList(JSON.parse(sessionStorage.getItem(STORAGE_PREFIX + 'newList')))
     }
-    const st=JSON.parse(localStorage.getItem("scrollTop"));
+    const st=JSON.parse(sessionStorage.getItem("scrollTop"));
     if (st!=null){
       setTimeout(() => {
-        alert(st)
         if (document.documentElement.scrollTop){
           document.documentElement.scrollTop=st;
         }else{
@@ -99,7 +98,7 @@ const blog = ({ postList, maxId, minId }) => {
     setMouted(true)
     const handleScroll = (e) => {
       const scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
-      localStorage.setItem("scrollTop",JSON.stringify(scrollTop))
+      sessionStorage.setItem("scrollTop",JSON.stringify(scrollTop))
     }
     window.addEventListener("scroll", handleScroll)
     return () => {
