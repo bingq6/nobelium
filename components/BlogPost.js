@@ -26,7 +26,7 @@ const BlogPost = ({ post }) => {
       </a>
     </Link>)
   }
-  return (<Link href={`/news/${post.sort}`}>
+  return (<Link prefetch={false} href={`/news/${post.sort}`}>
     <a target='_blank'>
       {artcile}
     </a>
