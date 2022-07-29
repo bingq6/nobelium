@@ -37,7 +37,7 @@ const Layout = ({
               <p className="md:block">来源：{frontMatter.sourceName}</p>
             </div>
             <div className='flex-grow text-right source-link'>
-              <a className='link' href={frontMatter.linkUrl} rel="noreferrer" target="_blank">访问原网址</a>
+              <a className='link' href={frontMatter.linkUrl} rel="noopener noreferrer nofollow"  target="_blank">访问原网址</a>
             </div>
             {frontMatter.tags && (
               <div className="flex flex-nowrap max-w-full overflow-x-auto article-tags">
