@@ -16,8 +16,7 @@
     "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start -p 3000",
-    "lint": "next lint",
-    "postbuild": "next-sitemap --config next-sitemap.config.js"
+    "lint": "next lint"
   },
   "dependencies": {
     "axios": ">=0.21.1",

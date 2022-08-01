@@ -4,3 +4,6 @@ Allow: /
 
 # Host
 Host: https://www.shun6.net
+
+# Sitemaps
+Sitemap: https://www.shun6.net/sitemap_index.xml
